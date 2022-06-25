@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:revision_1/modules/Search/search.dart';
@@ -15,10 +16,19 @@ import 'modules/SplashScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("hadi terminated notification");
+}
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  
   runApp(Myapp());
 }
 
@@ -28,8 +38,19 @@ class Myapp extends StatelessWidget {
   static FirebaseFirestore fire_cloud_store = FirebaseFirestore.instance;
   static FirebaseStorage FireStorage_obj=FirebaseStorage.instance ;
   static dynamic local_storage;
+  var notifInstatence=FirebaseMessaging.instance;
   @override
+  
   Widget build(BuildContext context) {
+    notifInstatence.getToken().then((value) => print('token is =>'+value.toString()));
+
+    FirebaseMessaging.onMessage.listen((event) {
+      print('ahaaaw rani khadama we hay jatni notif');
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      print('hello from backagrounded app chatify  ');
+    }) ;
+    
     return FutureBuilder<dynamic>(
         future: LocalStorage.InitLocalStorage(),
         builder: (context, snapshot) {

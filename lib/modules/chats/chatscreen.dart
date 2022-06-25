@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:revision_1/main.dart';
 import 'package:revision_1/shared/Local/localstorage.dart';
 import 'package:revision_1/shared/componants/componants.dart';
+import 'package:revision_1/shared/network/dio.dart';
 
 class ChatScreen extends StatefulWidget {
   static String pageName = 'Chatbox';
@@ -57,9 +58,11 @@ Myapp.fire_cloud_store
       'From': Myapp.local_storage.getString('uid'),
       'content': myMsg.text,
       'date': DateTime.now()
-    }).then((value) {
+    }).then((value){
+       DioHelper.PostNotification( myMsg.text);
       print('Message sent to houda');
       myMsg.text = '';
+
     });
 
 
