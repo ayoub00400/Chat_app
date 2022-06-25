@@ -7,7 +7,7 @@ DioHelper();
 
 static PostNotification(String msg)  {
    my_http1.post( baseUrl,options: Options(headers: {
-    "Authorization":"key=AAAAKrobFoo:APA91bE-Re7-nHxirNSJ3410cTqRCrG0heCknqgUxgVn5B-Hq3lC0aW0pyhKKS_9U7AtE4cWe3xhhg2Anw9Uak8A_9eOyHtnsomYqSNYgs2g99ip854DxLi0uxRgdNHCI_QOE09GUk4R",
+    "Authorization":"key=here enter your cloud messaging server key",
     "Content-Type":"application/json"
   }), data:{
     
